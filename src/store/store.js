@@ -1,5 +1,5 @@
 import { compose, createStore, applyMiddleware } from "redux";
-import logger from "redux-logger";
+import logger from 'redux-logger';
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 // import thunk from "redux-thunk";
@@ -36,7 +36,7 @@ const composeEnhancer =
     window &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
-  
+
 const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 
 export const store = createStore(

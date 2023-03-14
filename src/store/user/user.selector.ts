@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
-
-const selectUserReducer = (state) => {
+import { UserState } from "./user.reducer";
+const selectUserReducer = (state: any): UserState => {
   
   return state.user;
   

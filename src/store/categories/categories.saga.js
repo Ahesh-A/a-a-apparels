@@ -20,6 +20,7 @@ export function* fetchCategoriesAsync() {
     yield put(fetchCategoriesError(error));
   }
 }
+
 export function* onFetchCategories() {
   yield takeLatest(
     CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START,
