@@ -8,7 +8,7 @@ import { selectCategoriesLoding } from "../../store/categories/category.selector
 
 const CategoriesPreview = () => {
   const categoriesMap = useSelector(selectCategoriesMap);
-  console
+  
   const isLoading = useSelector(selectCategoriesLoding);
   
   return (
