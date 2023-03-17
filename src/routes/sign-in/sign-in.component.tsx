@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import FormInput from "../../components/form-input/form-input.component";
 import Button,{BUTTON_TYPE_CLASSES} from "../../components/button/Button.component";
 import { googleSignInStart, emailSignInStart } from "../../store/user/user.action";
 import { useDispatch } from "react-redux";
+import { Auth, AuthError, AuthErrorCodes } from "firebase/auth";
 import './sign-in.styles.scss';
 const defaultFormFields = {
     email: '',
@@ -15,7 +16,7 @@ const SingIn = () => {
     const { email, password } = formFields;
     
     const dispatch = useDispatch();
-    const changeHandler = (event) => {
+    const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
     }
@@ -26,7 +27,7 @@ const SingIn = () => {
        
     }
 
-    const loginWithEmailAndPassword = async (event) => {
+    const loginWithEmailAndPassword = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
             dispatch(emailSignInStart(email, password));
@@ -35,26 +36,24 @@ const SingIn = () => {
             
             //setCurrentUser()
         } catch (error) {
-            switch (error.code) {
-                case 'auth/wrong-password':
+            switch ((error as AuthError).code) {
+                case AuthErrorCodes.INVALID_PASSWORD:
                     alert('incorrect password for email');
                     break;
-                case 'auth/user-not-found':
+                case AuthErrorCodes.USER_DELETED:
                     alert('no user associated with this email');
                     break;
                 default:
                     console.log(error);
             }
-
         }
-
     }
 
     return (
         <div className="sign-in-container">
             <h2> Already have an account? </h2>
             <span>Sign in with your email and password</span>
-            <form onSubmit={loginWithEmailAndPassword}>
+            <form onSubmit={ loginWithEmailAndPassword}>
                 <FormInput
                     label="email"
                     type="email"

@@ -4,7 +4,7 @@ import {
   CartItems,
 } from "./cart-dropdown.styles";
 import CartItem from "../cart-item/cart-item.component.jsx";
-import Button from "../button/Button.component.jsx";
+import Button from "../button/Button.component";
 // import { CartContext } from "../../contexts/cart.context";
 // import { useContext } from "react";
 import { useNavigate } from "react-router-dom";

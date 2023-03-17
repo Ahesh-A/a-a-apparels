@@ -7,13 +7,17 @@ import { useSelector } from "react-redux";
 import { selectCategoriesLoding } from "../../store/categories/category.selector";
 import { selectCategoriesMap } from "../../store/categories/category.selector";
 import Spinner from "../../components/spinner/spinner.components";
-const Category = () => {
-  console.log("rendering and rerendering category component");
 
-  const { category } = useParams();
+type CategoryRouteParams = {
+  category: string;
+};
+
+const Category = () => {
+  const { category } = useParams<keyof CategoryRouteParams>() as CategoryRouteParams;
   const categoriesMap = useSelector(selectCategoriesMap);
   const [products, setProducts] = useState(categoriesMap[category]);
   const isLoading = useSelector(selectCategoriesLoding);
+
   useEffect(() => {
     const filteredProducts = categoriesMap[category];
     console.log("effect fired calling setproducts");
